@@ -43,6 +43,14 @@
     <ItemGroup>
         <Compile Include="Event.cs" />
         <Compile Include="Extensions.cs" />
+        <Compile Include="Processes\AsyncProcess.cs" />
+        <Compile Include="Processes\CoroutineProcess.cs" />
+        <Compile Include="Processes\LazyProcess.cs" />
+        <Compile Include="Processes\MultiProcess.cs" />
+        <Compile Include="Processes\ParallelProcess.cs" />
+        <Compile Include="Processes\Process.cs" />
+        <Compile Include="Processes\SerialProcess.cs" />
+        <Compile Include="Processes\SyncProcess.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="States\AbstractState.cs" />
         <Compile Include="States\AbstractSubStateMachine.cs" />
@@ -53,10 +61,21 @@
         <Compile Include="States\StateWithInfo.cs" />
         <Compile Include="States\SubStateMachine.cs" />
         <Compile Include="States\SubStateMachineWithInfo.cs" />
+        <Compile Include="Test.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="Event.cs.meta" />
       <Content Include="Extensions.cs.meta" />
+      <Content Include="GeneralUtils.asmdef" />
+      <Content Include="Processes.meta" />
+      <Content Include="Processes\AsyncProcess.cs.meta" />
+      <Content Include="Processes\CoroutineProcess.cs.meta" />
+      <Content Include="Processes\LazyProcess.cs.meta" />
+      <Content Include="Processes\MultiProcess.cs.meta" />
+      <Content Include="Processes\ParallelProcess.cs.meta" />
+      <Content Include="Processes\Process.cs.meta" />
+      <Content Include="Processes\SerialProcess.cs.meta" />
+      <Content Include="Processes\SyncProcess.cs.meta" />
       <Content Include="States.meta" />
       <Content Include="States\AbstractState.cs.meta" />
       <Content Include="States\AbstractSubStateMachine.cs.meta" />
