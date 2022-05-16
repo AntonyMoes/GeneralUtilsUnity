@@ -67,6 +67,9 @@
       <Content Include="Event.cs.meta" />
       <Content Include="Extensions.cs.meta" />
       <Content Include="GeneralUtils.asmdef" />
+      <Content Include="GeneralUtils.asmdef.meta" />
+      <Content Include="GeneralUtils.csproj.meta" />
+      <Content Include="GeneralUtils.sln.meta" />
       <Content Include="Processes.meta" />
       <Content Include="Processes\AsyncProcess.cs.meta" />
       <Content Include="Processes\CoroutineProcess.cs.meta" />
@@ -76,6 +79,9 @@
       <Content Include="Processes\Process.cs.meta" />
       <Content Include="Processes\SerialProcess.cs.meta" />
       <Content Include="Processes\SyncProcess.cs.meta" />
+      <Content Include="Properties.meta" />
+      <Content Include="Properties\AssemblyInfo.cs.meta" />
+      <Content Include="README.md.meta" />
       <Content Include="States.meta" />
       <Content Include="States\AbstractState.cs.meta" />
       <Content Include="States\AbstractSubStateMachine.cs.meta" />
@@ -86,6 +92,7 @@
       <Content Include="States\StateWithInfo.cs.meta" />
       <Content Include="States\SubStateMachine.cs.meta" />
       <Content Include="States\SubStateMachineWithInfo.cs.meta" />
+      <Content Include="Test.cs.meta" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
