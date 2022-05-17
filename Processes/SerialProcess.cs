@@ -26,7 +26,9 @@ namespace GeneralUtils.Processes {
         }
 
         protected override void PerformAbort() {
-            _items[_currentIndex].Abort();
+            foreach (var item in _items) {
+                item.TryAbort();
+            }
         }
 
         protected override void PerformAdd(Process subProcess) {

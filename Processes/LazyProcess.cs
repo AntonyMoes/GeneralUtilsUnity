@@ -17,7 +17,7 @@ namespace GeneralUtils.Processes {
         }
 
         protected override void PerformAbort() {
-            _lazyProcess.Value.Abort();
+            _lazyProcess.Value.TryAbort();
         }
     }
 }

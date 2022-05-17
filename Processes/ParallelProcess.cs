@@ -26,9 +26,7 @@ namespace GeneralUtils.Processes {
 
         protected override void PerformAbort() {
             foreach (var item in _items) {
-                if (item.State == EState.Running) {
-                    item.Abort();
-                }
+                item.TryAbort();
             }
         }
 
