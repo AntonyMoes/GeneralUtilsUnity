@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using GeneralUtils.Command;
 using GeneralUtils.Processes;
 
 namespace GeneralUtils {
@@ -82,6 +83,22 @@ namespace GeneralUtils {
             Console.WriteLine("TestAsync after delay");
 
             return delay;
+        }
+
+        // PoC class:
+        internal abstract class GameCommand<T> : ReversibleCommand {
+            private T _data;
+
+            public void SetData(T data) {
+                _data = data;
+            }
+
+            protected override Action PerformReversibleDo() {
+                var performUndoOnData = PerformReversibleDoOnData(_data);
+                return () => performUndoOnData(_data);
+            }
+
+            protected abstract Action<T> PerformReversibleDoOnData(T data);
         }
     }
 }
