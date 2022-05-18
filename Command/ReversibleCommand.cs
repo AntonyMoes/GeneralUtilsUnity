@@ -11,7 +11,7 @@ namespace GeneralUtils.Command {
         protected abstract Action PerformReversibleDo();
 
         public void Undo() {
-            CheckAndSwitchState(EState.Done, EState.NotDone);
+            CheckAndSwitchState(EState.NotDone, EState.Done);
             _performUndo();
         }
     }

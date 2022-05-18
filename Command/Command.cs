@@ -1,30 +1,22 @@
-﻿using System;
-
-namespace GeneralUtils.Command {
+﻿namespace GeneralUtils.Command {
     public abstract class Command {
         public enum EState {
             NotDone,
             Done
         }
 
-        public EState State { get; private set; } = EState.NotDone;
+        private readonly StateSwitcher<EState> _stateSwitcher = new StateSwitcher<EState>(EState.NotDone);
+        public EState State => _stateSwitcher.State;
 
         public void Do() {
-            CheckAndSwitchState(EState.NotDone, EState.Done);
+            _stateSwitcher.CheckAndSwitchState(EState.Done, EState.NotDone);
             PerformDo();
         }
 
         protected abstract void PerformDo();
 
-        protected void CheckAndSwitchState(EState expected, EState newState) {
-            CheckState(expected);
-            State = newState;
-        }
-
-        private void CheckState(EState expected) {
-            if (State != expected) {
-                throw new ApplicationException($"Expected {expected} state but got {State}");
-            }
+        protected void CheckAndSwitchState(EState newState, params EState[] expected) {
+            _stateSwitcher.CheckAndSwitchState(newState, expected);
         }
     }
 }

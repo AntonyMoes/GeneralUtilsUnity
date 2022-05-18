@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace GeneralUtils.Processes {
     public abstract class Process {
@@ -10,13 +9,14 @@ namespace GeneralUtils.Processes {
             Finished
         }
 
+        private readonly StateSwitcher<EState> _stateSwitcher = new StateSwitcher<EState>(EState.Standby);
         private Action _onAbort;
-
         private Action _onDone;
-        public EState State { get; private set; } = EState.Standby;
+
+        public EState State => _stateSwitcher.State;
 
         public void Run(Action onDone = null, Action onAbort = null) {
-            CheckAndSwitchState(EState.Running, EState.Standby);
+            _stateSwitcher.CheckAndSwitchState(EState.Running, EState.Standby);
             _onDone = onDone;
             _onAbort = onAbort;
             PerformRun();
@@ -28,7 +28,7 @@ namespace GeneralUtils.Processes {
             switch (State) {
                 case EState.Standby:
                 case EState.Running:
-                    CheckAndSwitchState(EState.Aborted, EState.Running, EState.Standby);
+                    _stateSwitcher.CheckAndSwitchState(EState.Aborted, EState.Running, EState.Standby);
                     PerformAbort();
                     _onAbort?.Invoke();
                     break;
@@ -43,19 +43,12 @@ namespace GeneralUtils.Processes {
         protected abstract void PerformAbort();
 
         protected void Finish() {
-            CheckAndSwitchState(EState.Finished, EState.Running);
+            _stateSwitcher.CheckAndSwitchState(EState.Finished, EState.Running);
             _onDone?.Invoke();
         }
 
-        private void CheckAndSwitchState(EState newState, params EState[] expected) {
-            CheckState(expected);
-            State = newState;
-        }
-
         protected void CheckState(params EState[] expected) {
-            if (!expected.Contains(State)) {
-                throw new ApplicationException($"Expected {string.Join(" or ", expected)} state but got {State}");
-            }
+            _stateSwitcher.CheckState(expected);
         }
     }
 }
