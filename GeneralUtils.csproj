@@ -48,6 +48,7 @@
         <Compile Include="StateSwitcher.cs" />
         <Compile Include="Processes\AsyncProcess.cs" />
         <Compile Include="Processes\CoroutineProcess.cs" />
+        <Compile Include="Processes\DummyProcess.cs" />
         <Compile Include="Processes\LazyProcess.cs" />
         <Compile Include="Processes\MultiProcess.cs" />
         <Compile Include="Processes\ParallelProcess.cs" />
@@ -65,6 +66,7 @@
         <Compile Include="States\SubStateMachine.cs" />
         <Compile Include="States\SubStateMachineWithInfo.cs" />
         <Compile Include="Test.cs" />
+        <Compile Include="ValueWaiter.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="Command.meta" />

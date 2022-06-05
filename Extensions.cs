@@ -30,6 +30,30 @@ namespace GeneralUtils {
 
         #endregion
 
+        #region Dictionary
+
+        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key,
+            TValue defaultValue) {
+            return dictionary.GetValue(key, () => defaultValue);
+        }
+
+        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key,
+            Func<TValue> defaultValueInstantiator) {
+            return dictionary.GetValue(key, new Lazy<TValue>(defaultValueInstantiator));
+        }
+
+        public static TValue GetValue<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key,
+            Lazy<TValue> defaultValue) {
+            if (dictionary.TryGetValue(key, out var result)) {
+                return result;
+            }
+
+            dictionary[key] = defaultValue.Value;
+            return defaultValue.Value;
+        }
+
+        #endregion
+
         #region KeyValuePair
 
         public static void Deconstruct<TKey, TValue>(this KeyValuePair<TKey, TValue> pair, out TKey key,
