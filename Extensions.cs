@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GeneralUtils {
     public static class Extensions {
@@ -26,6 +27,10 @@ namespace GeneralUtils {
             foreach (var item in enumerable) {
                 action(item);
             }
+        }
+
+        public static Dictionary<TKey, TValue> ZipToDictionary<TKey, TValue>(this IEnumerable<TKey> keys, IEnumerable<TValue> values) {
+            return keys.Zip(values, (k, v) => (k, v)).ToDictionary(pair => pair.k, pair => pair.v);
         }
 
         #endregion
