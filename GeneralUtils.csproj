@@ -45,6 +45,7 @@
         <Compile Include="Command\ReversibleCommand.cs" />
         <Compile Include="Event.cs" />
         <Compile Include="Extensions.cs" />
+        <Compile Include="Rng.cs" />
         <Compile Include="StateSwitcher.cs" />
         <Compile Include="Processes\AsyncProcess.cs" />
         <Compile Include="Processes\CoroutineProcess.cs" />
@@ -74,6 +75,7 @@
       <Content Include="Command\ReversibleCommand.cs.meta" />
       <Content Include="Event.cs.meta" />
       <Content Include="Extensions.cs.meta" />
+      <Content Include="Rng.cs.meta" />
       <Compile Include="StateSwitcher.cs.meta" />
       <Content Include="GeneralUtils.asmdef" />
       <Content Include="GeneralUtils.asmdef.meta" />

@@ -15,6 +15,10 @@ namespace GeneralUtils {
         public void Unsubscribe(Action subscriber) {
             _event -= subscriber;
         }
+
+        public void ClearSubscribers() {
+            _event = null;
+        }
     }
 
     public class Event<T> {
@@ -30,6 +34,10 @@ namespace GeneralUtils {
 
         public void Unsubscribe(Action<T> subscriber) {
             _event -= subscriber;
+        }
+
+        public void ClearSubscribers() {
+            _event = null;
         }
     }
 
@@ -47,6 +55,10 @@ namespace GeneralUtils {
         public void Unsubscribe(Action<T1, T2> subscriber) {
             _event -= subscriber;
         }
+
+        public void ClearSubscribers() {
+            _event = null;
+        }
     }
 
     public class Event<T1, T2, T3> {
@@ -62,6 +74,10 @@ namespace GeneralUtils {
 
         public void Unsubscribe(Action<T1, T2, T3> subscriber) {
             _event -= subscriber;
+        }
+
+        public void ClearSubscribers() {
+            _event = null;
         }
     }
 }
