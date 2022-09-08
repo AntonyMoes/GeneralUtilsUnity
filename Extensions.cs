@@ -23,6 +23,17 @@ namespace GeneralUtils {
             return -1;
         }
 
+        public static int IndexOf<T>(this IEnumerable<T> source, Func<T, bool> match) {
+            var index = 0;
+            foreach (var item in source) {
+                if (match(item))
+                    return index;
+                index++;
+            }
+
+            return -1;
+        }
+
         public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action) {
             foreach (var item in enumerable) {
                 action(item);
