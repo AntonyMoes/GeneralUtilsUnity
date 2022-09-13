@@ -44,6 +44,22 @@ namespace GeneralUtils {
             return keys.Zip(values, (k, v) => (k, v)).ToDictionary(pair => pair.k, pair => pair.v);
         }
 
+        public static IEnumerable<T> Cycle<T>(this IEnumerable<T> enumerable) {
+            using var enumerator = enumerable.GetEnumerator();
+            if (!enumerator.MoveNext()) {
+                throw new ArgumentException("Can't cycle empty enumerable");
+            }
+
+            while (true) {
+                yield return enumerator.Current;
+
+                if (!enumerator.MoveNext()) {
+                    enumerator.Reset();
+                    enumerator.MoveNext();
+                }
+            }
+        }
+
         #endregion
 
         #region Dictionary
