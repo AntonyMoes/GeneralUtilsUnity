@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 
 namespace GeneralUtils {
-    public class ValueWaiter<T> {
+    public class UpdatedValue<T> : IUpdatedValue<T> {
         private readonly Dictionary<Func<T, bool>, Action> _waiters = new Dictionary<Func<T, bool>, Action>();
+        private readonly List<Action<T>> _subscribers = new List<Action<T>>();
 
         private T _value;
         public T Value {
@@ -27,10 +28,14 @@ namespace GeneralUtils {
                 foreach (var waiter in activated) {
                     waiter?.Invoke();
                 }
+
+                foreach (var subscriber in _subscribers) {
+                    subscriber?.Invoke(value);
+                }
             }
         }
 
-        public ValueWaiter(T initialValue = default) {
+        public UpdatedValue(T initialValue = default) {
             _value = initialValue;
         }
 
@@ -55,5 +60,35 @@ namespace GeneralUtils {
                 _waiters.Add(predicate, onDone);
             }
         }
+
+        public void Subscribe(Action<T> onChange, bool triggerInitialUpdate = false) {
+            _subscribers.Add(onChange);
+
+            if (triggerInitialUpdate) {
+                onChange?.Invoke(Value);
+            }
+        }
+
+        public void Unsubscribe(Action<T> onChange) {
+            _subscribers.Remove(onChange);
+        }
+
+        public void Clear() {
+            _waiters.Clear();
+            _subscribers.Clear();
+        }
+    }
+
+    public interface IUpdatedValue<T> {
+        public T Value { get; }
+
+        public void WaitForChange(Action onDone);
+        public void WaitFor(T concreteValue, Action onDone);
+        public void WaitFor(Func<T, bool> predicate, Action onDone);
+
+        public void Subscribe(Action<T> onChange, bool triggerInitialUpdate = false);
+        public void Unsubscribe(Action<T> onChange);
+
+        public void Clear();
     }
 }
