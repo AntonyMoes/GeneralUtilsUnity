@@ -6,11 +6,13 @@ namespace GeneralUtils {
         private readonly Dictionary<Func<T, bool>, Action> _waiters = new Dictionary<Func<T, bool>, Action>();
         private readonly List<Action<T>> _subscribers = new List<Action<T>>();
 
+        private readonly Func<T, T> _setter;
+
         private T _value;
         public T Value {
             get => _value;
             set {
-                _value = value;
+                _value = _setter == null ? value : _setter(value);
 
                 var toRemove = new List<Func<T, bool>>();
                 var activated = new List<Action>();
@@ -35,8 +37,9 @@ namespace GeneralUtils {
             }
         }
 
-        public UpdatedValue(T initialValue = default) {
+        public UpdatedValue(T initialValue = default, Func<T, T> setter = null) {
             _value = initialValue;
+            _setter = setter;
         }
 
         public void WaitForChange(Action onDone) {
