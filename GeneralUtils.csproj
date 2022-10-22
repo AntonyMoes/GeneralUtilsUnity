@@ -57,6 +57,7 @@
         <Compile Include="Processes\SerialProcess.cs" />
         <Compile Include="Processes\SyncProcess.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="SingletonBehaviour.cs" />
         <Compile Include="States\AbstractState.cs" />
         <Compile Include="States\AbstractSubStateMachine.cs" />
         <Compile Include="States\IState.cs" />
@@ -93,6 +94,7 @@
       <Content Include="Properties.meta" />
       <Content Include="Properties\AssemblyInfo.cs.meta" />
       <Content Include="README.md.meta" />
+      <Content Include="SingletonBehaviour.cs.meta" />
       <Content Include="States.meta" />
       <Content Include="States\AbstractState.cs.meta" />
       <Content Include="States\AbstractSubStateMachine.cs.meta" />
