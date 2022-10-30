@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace GeneralUtils {
     public static class Extensions {
@@ -92,6 +93,16 @@ namespace GeneralUtils {
             out TValue value) {
             key = pair.Key;
             value = pair.Value;
+        }
+
+        #endregion
+
+        #region Color
+
+        public static Color WithAlpha(this Color color, float alpha) {
+            var result = color;
+            result.a = alpha;
+            return result;
         }
 
         #endregion
