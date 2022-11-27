@@ -56,6 +56,7 @@
         <Compile Include="Processes\Process.cs" />
         <Compile Include="Processes\SerialProcess.cs" />
         <Compile Include="Processes\SyncProcess.cs" />
+        <Compile Include="Processes\TweenProcess.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="SingletonBehaviour.cs" />
         <Compile Include="States\AbstractState.cs" />
@@ -91,6 +92,7 @@
       <Content Include="Processes\Process.cs.meta" />
       <Content Include="Processes\SerialProcess.cs.meta" />
       <Content Include="Processes\SyncProcess.cs.meta" />
+      <Content Include="Processes\TweenProcess.cs.meta" />
       <Content Include="Properties.meta" />
       <Content Include="Properties\AssemblyInfo.cs.meta" />
       <Content Include="README.md.meta" />
