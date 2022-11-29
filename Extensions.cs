@@ -45,6 +45,12 @@ namespace GeneralUtils {
             return keys.Zip(values, (k, v) => (k, v)).ToDictionary(pair => pair.k, pair => pair.v);
         }
 
+        public static bool DictEqual<TKey, TValue>(this Dictionary<TKey, TValue> dictionary1, Dictionary<TKey, TValue> dictionary2) {
+            return dictionary1
+                .OrderBy(kvp => kvp.Key)
+                .SequenceEqual(dictionary2.OrderBy(kvp => kvp.Key));
+        }
+
         public static IEnumerable<T> Cycle<T>(this IEnumerable<T> enumerable) {
             using var enumerator = enumerable.GetEnumerator();
             if (!enumerator.MoveNext()) {
@@ -103,6 +109,46 @@ namespace GeneralUtils {
             var result = color;
             result.a = alpha;
             return result;
+        }
+
+        #endregion
+
+        #region Vector3
+
+        public static Vector3 With(this Vector3 vector, float? x = null, float? y = null, float? z = null) {
+            var newVector = vector;
+
+            if (x is { } newX) {
+                newVector.x = newX;
+            }
+
+            if (y is { } newY) {
+                newVector.y = newY;
+            }
+
+            if (z is { } newZ) {
+                newVector.z = newZ;
+            }
+
+            return newVector;
+        }
+
+        #endregion
+
+        #region Vector2
+
+        public static Vector2 With(this Vector2 vector, float? x = null, float? y = null) {
+            var newVector = vector;
+
+            if (x is { } newX) {
+                newVector.x = newX;
+            }
+
+            if (y is { } newY) {
+                newVector.y = newY;
+            }
+
+            return newVector;
         }
 
         #endregion
