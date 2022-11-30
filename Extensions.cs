@@ -45,7 +45,7 @@ namespace GeneralUtils {
             return keys.Zip(values, (k, v) => (k, v)).ToDictionary(pair => pair.k, pair => pair.v);
         }
 
-        public static bool DictEqual<TKey, TValue>(this Dictionary<TKey, TValue> dictionary1, Dictionary<TKey, TValue> dictionary2) {
+        public static bool DictEqual<TKey, TValue>(this IDictionary<TKey, TValue> dictionary1, IDictionary<TKey, TValue> dictionary2) {
             return dictionary1
                 .OrderBy(kvp => kvp.Key)
                 .SequenceEqual(dictionary2.OrderBy(kvp => kvp.Key));
