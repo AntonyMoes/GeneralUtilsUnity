@@ -91,6 +91,10 @@ namespace GeneralUtils {
             return defaultValue.Value;
         }
 
+        public static Dictionary<TKey, TValue> Copy<TKey, TValue>(this Dictionary<TKey, TValue> dictionary) {
+            return dictionary.ToDictionary(pair => pair.Key, pair => pair.Value);
+        }
+
         #endregion
 
         #region KeyValuePair
