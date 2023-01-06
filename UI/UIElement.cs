@@ -1,13 +1,47 @@
 ﻿using System;
-using GeneralUtils;
 using UnityEngine;
 
-namespace _Game.Scripts.UI {
+namespace GeneralUtils.UI {
     public class UIElement : MonoBehaviour {
         public EState State => _state.Value;
         private readonly UpdatedValue<EState> _state = new UpdatedValue<EState>(EState.Hided);
 
         protected virtual bool ClearOnHide => true;
+
+        public readonly Event OnShowing;
+        public readonly Event OnShown;
+        public readonly Event OnHiding;
+        public readonly Event OnHided;
+
+        public UIElement() {
+            OnShowing = new Event(out var onShowing);
+            OnShown = new Event(out var onShown);
+            OnHiding = new Event(out var onHiding);
+            OnHided = new Event(out var onHided);
+
+            _state.Subscribe(state => {
+                switch (state) {
+                    case EState.Showing:
+                        onShowing();
+                        break;
+                    case EState.Shown:
+                        onShown();
+                        break;
+                    case EState.Hiding:
+                        onHiding();
+                        break;
+                    case EState.Hided:
+                        onHided();
+                        break;
+                }
+            });
+        }
+
+        private void Awake() {
+            Init();
+        }
+
+        protected virtual void Init() { }
 
         public void Show(Action onDone = null) {
             if (State == EState.Shown) {
@@ -19,7 +53,7 @@ namespace _Game.Scripts.UI {
                 _state.WaitFor(EState.Shown, onDone);
                 return;
             }
-            
+
             // TODO what to do if Hiding?
 
             _state.Value = EState.Showing;
