@@ -68,6 +68,7 @@
         <Compile Include="States\StateWithInfo.cs" />
         <Compile Include="States\SubStateMachine.cs" />
         <Compile Include="States\SubStateMachineWithInfo.cs" />
+        <Compile Include="UI\UIElement.cs" />
         <Compile Include="Test.cs" />
         <Compile Include="ValueWaiter.cs" />
     </ItemGroup>
@@ -107,6 +108,8 @@
       <Content Include="States\StateWithInfo.cs.meta" />
       <Content Include="States\SubStateMachine.cs.meta" />
       <Content Include="States\SubStateMachineWithInfo.cs.meta" />
+      <Content Include="UI.meta" />
+      <Content Include="UI\UIElement.cs.meta" />
       <Content Include="Test.cs.meta" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
