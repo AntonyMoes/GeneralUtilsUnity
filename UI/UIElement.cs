@@ -5,6 +5,7 @@ namespace GeneralUtils.UI {
     public class UIElement : MonoBehaviour {
         public EState State => _state.Value;
         private readonly UpdatedValue<EState> _state = new UpdatedValue<EState>(EState.Hided);
+        private CanvasGroup _group;
 
         protected virtual bool ClearOnHide => true;
 
@@ -39,6 +40,7 @@ namespace GeneralUtils.UI {
 
         private void Awake() {
             Init();
+            _group = TryGetComponent<CanvasGroup>(out var group) ? group : gameObject.AddComponent<CanvasGroup>();
         }
 
         protected virtual void Init() { }
@@ -58,8 +60,10 @@ namespace GeneralUtils.UI {
 
             _state.Value = EState.Showing;
             gameObject.SetActive(true);
+            _group.interactable = false;
 
             PerformShow(() => {
+                _group.interactable = true;
                 _state.Value = EState.Shown;
                 onDone?.Invoke();
             });
@@ -83,8 +87,10 @@ namespace GeneralUtils.UI {
             // TODO what to do if Showing?
 
             _state.Value = EState.Hiding;
+            _group.interactable = false;
 
             PerformHide(() => {
+                _group.interactable = true;
                 gameObject.SetActive(false);
                 _state.Value = EState.Hided;
 
