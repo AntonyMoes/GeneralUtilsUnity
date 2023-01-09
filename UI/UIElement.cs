@@ -9,6 +9,8 @@ namespace GeneralUtils.UI {
 
         protected virtual bool ClearOnHide => true;
 
+        protected virtual bool ChangeInteractivity => true;
+
         public readonly Event OnShowing;
         public readonly Event OnShown;
         public readonly Event OnHiding;
@@ -60,10 +62,20 @@ namespace GeneralUtils.UI {
 
             _state.Value = EState.Showing;
             gameObject.SetActive(true);
-            _group.interactable = false;
+
+            if (ChangeInteractivity) {
+                _group.interactable = false;
+            } else {
+                _group.blocksRaycasts = false;
+            }
 
             PerformShow(() => {
-                _group.interactable = true;
+                if (ChangeInteractivity) {
+                    _group.interactable = true;
+                } else {
+                    _group.blocksRaycasts = true;
+                }
+
                 _state.Value = EState.Shown;
                 onDone?.Invoke();
             });
@@ -87,10 +99,20 @@ namespace GeneralUtils.UI {
             // TODO what to do if Showing?
 
             _state.Value = EState.Hiding;
-            _group.interactable = false;
+
+            if (ChangeInteractivity) {
+                _group.interactable = false;
+            } else {
+                _group.blocksRaycasts = false;
+            }
 
             PerformHide(() => {
-                _group.interactable = true;
+                if (ChangeInteractivity) {
+                    _group.interactable = true;
+                } else {
+                    _group.blocksRaycasts = true;
+                }
+
                 gameObject.SetActive(false);
                 _state.Value = EState.Hided;
 
