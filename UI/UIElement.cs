@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GeneralUtils.UI {
     public class UIElement : MonoBehaviour {
-        public EState State => _state.Value;
+        public IUpdatedValue<EState> State => _state;
         private readonly UpdatedValue<EState> _state = new UpdatedValue<EState>(EState.Hided);
         private CanvasGroup _group;
 
@@ -48,12 +48,12 @@ namespace GeneralUtils.UI {
         protected virtual void Init() { }
 
         public void Show(Action onDone = null) {
-            if (State == EState.Shown) {
+            if (_state.Value == EState.Shown) {
                 onDone?.Invoke();
                 return;
             }
 
-            if (State == EState.Showing) {
+            if (_state.Value == EState.Showing) {
                 _state.WaitFor(EState.Shown, onDone);
                 return;
             }
@@ -86,12 +86,12 @@ namespace GeneralUtils.UI {
         }
 
         public void Hide(Action onDone = null) {
-            if (State == EState.Hided) {
+            if (_state.Value == EState.Hided) {
                 onDone?.Invoke();
                 return;
             }
 
-            if (State == EState.Hiding) {
+            if (_state.Value == EState.Hiding) {
                 _state.WaitFor(EState.Hided, onDone);
                 return;
             }
