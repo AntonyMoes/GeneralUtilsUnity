@@ -32,7 +32,7 @@ namespace GeneralUtils {
                 }
 
                 foreach (var subscriber in _subscribers) {
-                    subscriber?.Invoke(value);
+                    subscriber?.Invoke(_value);
                 }
             }
         }
