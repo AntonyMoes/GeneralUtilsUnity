@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GeneralUtils {
     public class UpdatedValue<T> : IUpdatedValue<T> {
@@ -93,5 +94,44 @@ namespace GeneralUtils {
         public void Unsubscribe(Action<T> onChange);
 
         public void Clear();
+    }
+
+    public class UpdatedValueWaiter {
+        private Action _cancel;
+
+        public bool Cancelled { get; set; }
+
+        private UpdatedValueWaiter(Action cancel) {
+            
+        }
+
+        public void Cancel() {
+            _cancel?.Invoke();
+            _cancel = null;
+            Cancelled = true;
+        }
+
+        public static UpdatedValueWaiter WaitForAll<T>(IEnumerable<IUpdatedValue<T>> values, T concreteValue, Action onDone) =>
+            WaitForAll(values, value => value.Equals(concreteValue), onDone);
+
+        public static UpdatedValueWaiter WaitForAll<T>(IEnumerable<IUpdatedValue<T>> values, Func<T, bool> predicate, Action onDone) {
+            var cancelled = false;
+            var valueArray = values.ToArray();
+            var countLeft = valueArray.Length;
+            
+            foreach (var value in valueArray) {
+                value.WaitFor(predicate, OnPredicate);
+            }
+
+            void OnPredicate() {
+                if (!cancelled) {
+                    if (--countLeft == 0) {
+                        onDone?.Invoke();
+                    }
+                }
+            }
+
+            return new UpdatedValueWaiter(() => cancelled = true);
+        }
     }
 }
