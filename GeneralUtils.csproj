@@ -48,6 +48,7 @@
         <Compile Include="Rng.cs" />
         <Compile Include="StateSwitcher.cs" />
         <Compile Include="Processes\AsyncProcess.cs" />
+        <Compile Include="Processes\ConditionalProcess.cs" />
         <Compile Include="Processes\CoroutineProcess.cs" />
         <Compile Include="Processes\DummyProcess.cs" />
         <Compile Include="Processes\LazyProcess.cs" />
@@ -86,6 +87,7 @@
       <Content Include="GeneralUtils.sln.meta" />
       <Content Include="Processes.meta" />
       <Content Include="Processes\AsyncProcess.cs.meta" />
+      <Content Include="Processes\ConditionalProcess.cs.meta" />
       <Content Include="Processes\CoroutineProcess.cs.meta" />
       <Content Include="Processes\LazyProcess.cs.meta" />
       <Content Include="Processes\MultiProcess.cs.meta" />
