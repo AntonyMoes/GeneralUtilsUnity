@@ -17,7 +17,9 @@ namespace GeneralUtils.Processes {
         }
 
         protected override void PerformAbort() {
-            _lazyProcess.Value.TryAbort();
+            if (_lazyProcess.IsValueCreated) {
+                _lazyProcess.Value.TryAbort();
+            }
         }
     }
 }
