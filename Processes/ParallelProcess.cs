@@ -7,12 +7,12 @@ namespace GeneralUtils.Processes {
 
         protected override void PerformRun() {
             foreach (var item in _items) {
-                if (State == EState.Aborted) {
+                if (State.Value == EState.Aborted) {
                     return;
                 }
 
                 item.Run(() => {
-                    if (State == EState.Aborted) {
+                    if (State.Value == EState.Aborted) {
                         return;
                     }
 

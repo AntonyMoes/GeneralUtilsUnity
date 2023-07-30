@@ -52,7 +52,7 @@ namespace GeneralUtils.Processes {
 
             public bool IsReady => !_started && _dependencies.All(item => item.IsComplete);
 
-            public bool IsComplete => _process.State == EState.Finished;
+            public bool IsComplete => _process.State.Value == EState.Finished;
 
             public Item(Process process) {
                 _process = process;

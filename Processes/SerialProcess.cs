@@ -16,7 +16,7 @@ namespace GeneralUtils.Processes {
             }
 
             _items[_currentIndex].Run(() => {
-                if (State == EState.Aborted) {
+                if (State.Value == EState.Aborted) {
                     return;
                 }
 

@@ -10,7 +10,7 @@ namespace GeneralUtils.Processes {
 
         protected override void PerformRun() {
             _action();
-            if (State != EState.Aborted) {
+            if (State.Value != EState.Aborted) {
                 Finish();
             }
         }

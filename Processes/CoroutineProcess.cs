@@ -18,7 +18,7 @@ namespace GeneralUtils.Processes {
             IEnumerator InternalRoutine(IEnumerator routine) {
                 yield return routine;
 
-                if (State != EState.Aborted) {
+                if (State.Value != EState.Aborted) {
                     Finish();
                 }
             }

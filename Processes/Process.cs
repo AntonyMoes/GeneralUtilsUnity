@@ -13,7 +13,7 @@ namespace GeneralUtils.Processes {
         private Action _onAbort;
         private Action _onDone;
 
-        public EState State => _stateSwitcher.State;
+        public IUpdatedValue<EState> State => _stateSwitcher.State;
 
         public void Run(Action onDone = null, Action onAbort = null) {
             _stateSwitcher.CheckAndSwitchState(EState.Running, EState.Standby);
@@ -25,7 +25,7 @@ namespace GeneralUtils.Processes {
         protected abstract void PerformRun();
 
         public void TryAbort() {
-            switch (State) {
+            switch (State.Value) {
                 case EState.Standby:
                 case EState.Running:
                     _stateSwitcher.CheckAndSwitchState(EState.Aborted, EState.Running, EState.Standby);

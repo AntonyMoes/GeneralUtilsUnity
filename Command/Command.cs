@@ -6,7 +6,7 @@
         }
 
         private readonly StateSwitcher<EState> _stateSwitcher = new StateSwitcher<EState>(EState.NotDone);
-        public EState State => _stateSwitcher.State;
+        public IUpdatedValue<EState> State => _stateSwitcher.State;
 
         public void Do() {
             _stateSwitcher.CheckAndSwitchState(EState.Done, EState.NotDone);
