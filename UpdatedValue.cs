@@ -32,7 +32,7 @@ namespace GeneralUtils {
                     waiter?.Invoke();
                 }
 
-                foreach (var subscriber in _subscribers) {
+                foreach (var subscriber in _subscribers.ToArray()) {
                     subscriber?.Invoke(_value);
                 }
             }
