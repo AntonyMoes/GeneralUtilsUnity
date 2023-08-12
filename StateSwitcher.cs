@@ -17,7 +17,7 @@ namespace GeneralUtils {
 
         public void CheckState(params TEState[] expected) {
             if (expected.Length > 0 && !expected.Contains(_state.Value)) {
-                throw new ApplicationException($"Expected {string.Join(" or ", expected)} state but got {State}");
+                throw new ApplicationException($"Expected {string.Join(" or ", expected)} state but got {State.Value}");
             }
         }
     }
