@@ -3,42 +3,14 @@ using UnityEngine;
 
 namespace GeneralUtils.UI {
     public class UIElement : MonoBehaviour {
-        public IUpdatedValue<EState> State => _state;
         private readonly UpdatedValue<EState> _state = new UpdatedValue<EState>(EState.Hided);
+        public IUpdatedValue<EState> State => _state;
+
         private CanvasGroup _group;
 
         protected virtual bool ClearOnHide => true;
 
         protected virtual bool ChangeInteractivity => true;
-
-        public readonly Event OnShowing;
-        public readonly Event OnShown;
-        public readonly Event OnHiding;
-        public readonly Event OnHided;
-
-        public UIElement() {
-            OnShowing = new Event(out var onShowing);
-            OnShown = new Event(out var onShown);
-            OnHiding = new Event(out var onHiding);
-            OnHided = new Event(out var onHided);
-
-            _state.Subscribe(state => {
-                switch (state) {
-                    case EState.Showing:
-                        onShowing();
-                        break;
-                    case EState.Shown:
-                        onShown();
-                        break;
-                    case EState.Hiding:
-                        onHiding();
-                        break;
-                    case EState.Hided:
-                        onHided();
-                        break;
-                }
-            });
-        }
 
         private void Awake() {
             Init();
