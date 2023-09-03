@@ -3,39 +3,10 @@ using UnityEngine;
 
 namespace GeneralUtils.UI {
     public class UIElement : MonoBehaviour {
-        public EState State => _state.Value;
         private readonly UpdatedValue<EState> _state = new UpdatedValue<EState>(EState.Hided);
+        public IUpdatedValue<EState> State => _state;
 
         protected virtual bool ClearOnHide => true;
-
-        public readonly Event OnShowing;
-        public readonly Event OnShown;
-        public readonly Event OnHiding;
-        public readonly Event OnHided;
-
-        public UIElement() {
-            OnShowing = new Event(out var onShowing);
-            OnShown = new Event(out var onShown);
-            OnHiding = new Event(out var onHiding);
-            OnHided = new Event(out var onHided);
-
-            _state.Subscribe(state => {
-                switch (state) {
-                    case EState.Showing:
-                        onShowing();
-                        break;
-                    case EState.Shown:
-                        onShown();
-                        break;
-                    case EState.Hiding:
-                        onHiding();
-                        break;
-                    case EState.Hided:
-                        onHided();
-                        break;
-                }
-            });
-        }
 
         private void Awake() {
             Init();
@@ -44,12 +15,12 @@ namespace GeneralUtils.UI {
         protected virtual void Init() { }
 
         public void Show(Action onDone = null) {
-            if (State == EState.Shown) {
+            if (_state.Value == EState.Shown) {
                 onDone?.Invoke();
                 return;
             }
 
-            if (State == EState.Showing) {
+            if (_state.Value == EState.Showing) {
                 _state.WaitFor(EState.Shown, onDone);
                 return;
             }
@@ -70,12 +41,12 @@ namespace GeneralUtils.UI {
         }
 
         public void Hide(Action onDone = null) {
-            if (State == EState.Hided) {
+            if (_state.Value == EState.Hided) {
                 onDone?.Invoke();
                 return;
             }
 
-            if (State == EState.Hiding) {
+            if (_state.Value == EState.Hiding) {
                 _state.WaitFor(EState.Hided, onDone);
                 return;
             }
