@@ -8,12 +8,18 @@ namespace GeneralUtils {
         private readonly List<Action<T>> _subscribers = new List<Action<T>>();
 
         private readonly Func<T, T> _setter;
+        private readonly bool _setIfNotChanged;
 
         private T _value;
         public T Value {
             get => _value;
             set {
-                _value = _setter == null ? value : _setter(value);
+                var valueToSet = _setter == null ? value : _setter(value);
+                if (!_setIfNotChanged && valueToSet.Equals(_value)) {
+                    return;
+                }
+
+                _value = valueToSet;
 
                 var toRemove = new List<Func<T, bool>>();
                 var activated = new List<Action>();
@@ -38,9 +44,10 @@ namespace GeneralUtils {
             }
         }
 
-        public UpdatedValue(T initialValue = default, Func<T, T> setter = null) {
+        public UpdatedValue(T initialValue = default, Func<T, T> setter = null, bool setIfNotChanged = false) {
             _value = initialValue;
             _setter = setter;
+            _setIfNotChanged = setIfNotChanged;
         }
 
         public void WaitForChange(Action onDone) {
