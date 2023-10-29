@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace GeneralUtils.States {
-    public abstract class SubStateMachineWithInfo<TBaseStateEnum, TStateEnum, TStateInfo> : AbstractSubStateMachine<TBaseStateEnum, TStateEnum>
+    public class SubStateMachineWithInfo<TBaseStateEnum, TStateEnum, TStateInfo> : AbstractSubStateMachine<TBaseStateEnum, TStateEnum>
         where TBaseStateEnum : struct, Enum
         where TStateEnum : struct, Enum
         where TStateInfo : StateInfo {

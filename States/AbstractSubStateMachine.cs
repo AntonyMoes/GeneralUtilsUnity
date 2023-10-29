@@ -11,8 +11,8 @@ namespace GeneralUtils.States {
         }
 
         public void OnStateEnter(StateInfo stateInfo = null) {
-            Start();
             OnStateEnterLogic(stateInfo);
+            Start();
         }
 
         protected abstract void OnStateEnterLogic(StateInfo stateInfo = null);
