@@ -1,3 +1,3 @@
 ﻿namespace GeneralUtils.States {
-    public abstract class StateInfo { }
+    public interface IStateInfo { }
 }

@@ -3,7 +3,7 @@
 namespace GeneralUtils.States {
     public abstract class State<TStateEnum> : AbstractState<TStateEnum>
         where TStateEnum : struct, Enum {
-        public sealed override void OnStateEnter(StateInfo stateInfo = null) {
+        public sealed override void OnStateEnter(IStateInfo stateInfo = null) {
             PerformStateEnter();
         }
 

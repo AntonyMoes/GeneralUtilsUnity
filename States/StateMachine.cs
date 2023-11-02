@@ -52,7 +52,7 @@ namespace GeneralUtils.States {
             _states[currentState].OnStatePersist(deltaTime);
         }
 
-        private void SwitchToState(TStateEnum? stateName, StateInfo stateInfo) {
+        private void SwitchToState(TStateEnum? stateName, IStateInfo stateInfo) {
             if (stateName is { } state && !_states.ContainsKey(state)) {
                 throw new ArgumentException($"StateMachine does not contain the target state: {stateName}",
                     nameof(stateName));

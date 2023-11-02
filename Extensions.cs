@@ -103,6 +103,15 @@ namespace GeneralUtils {
             return defaultValue.Value;
         }
 
+        public static bool TryAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value) {
+            if (dictionary.ContainsKey(key)) {
+                return false;
+            }
+
+            dictionary.Add(key, value);
+            return true;
+        }
+
         public static Dictionary<TKey, TValue> Copy<TKey, TValue>(this Dictionary<TKey, TValue> dictionary) {
             return dictionary.ToDictionary(pair => pair.Key, pair => pair.Value);
         }
