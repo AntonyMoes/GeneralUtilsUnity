@@ -33,5 +33,14 @@ namespace GeneralUtils.Processes {
         protected override void PerformAdd(Process subProcess) {
             _items.Add(subProcess);
         }
+
+        public static ParallelProcess From(params Process[] processes) {
+            var parallelProcess = new ParallelProcess();
+            foreach (var process in processes) {
+                parallelProcess.Add(process);
+            }
+
+            return parallelProcess;
+        }
     }
 }

@@ -34,5 +34,14 @@ namespace GeneralUtils.Processes {
         protected override void PerformAdd(Process subProcess) {
             _items.Add(subProcess);
         }
+
+        public static SerialProcess From(params Process[] processes) {
+            var serialProcess = new SerialProcess();
+            foreach (var process in processes) {
+                serialProcess.Add(process);
+            }
+
+            return serialProcess;
+        }
     }
 }
