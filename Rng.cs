@@ -31,6 +31,28 @@ namespace GeneralUtils {
             return NextChoice(collection, out _);
         }
 
+        public T NextWeightedChoice<T>(IReadOnlyList<T> collection, IReadOnlyList<float> weights, out int index) {
+            if (collection.Count != weights.Count) {
+                throw new ArgumentException();
+            }
+
+            var totalWeight = weights.Sum();
+            var value = NextFloat(0, totalWeight);
+
+            float sum = 0;
+            index = 0;
+            foreach (var item in collection) {
+                var weight = weights[index];
+                if (value <= sum + weight)
+                    return item;
+
+                sum += weight;
+                index++;
+            }
+
+            throw new ApplicationException();
+        }
+
         public T NextWeightedChoice<T>(IReadOnlyList<(T item, float weight)> collection, out int index) {
             var totalWeight = collection.Sum(t => t.weight);
             var value = NextFloat(0, totalWeight);
