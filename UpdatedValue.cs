@@ -15,7 +15,7 @@ namespace GeneralUtils {
             get => _value;
             set {
                 var valueToSet = _setter == null ? value : _setter(value);
-                if (!_setIfNotChanged && valueToSet.Equals(_value)) {
+                if (!_setIfNotChanged && (valueToSet?.Equals(_value) ?? _value == null)) {
                     return;
                 }
 
