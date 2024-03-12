@@ -1,4 +1,6 @@
-﻿namespace GeneralUtils {
+﻿using UnityEngine;
+
+namespace GeneralUtils {
     public static class AdditionalExtensions {
         #region Color
 
