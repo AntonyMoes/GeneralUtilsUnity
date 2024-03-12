@@ -50,7 +50,7 @@
         <Compile Include="ValueWaiter.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="Extensions.cs.meta" />
+        <Content Include="AdditionalExtensions.cs.meta"/>
       <Content Include="GeneralUtils.asmdef" />
       <Content Include="GeneralUtils.asmdef.meta" />
       <Content Include="GeneralUtils.csproj.meta" />
