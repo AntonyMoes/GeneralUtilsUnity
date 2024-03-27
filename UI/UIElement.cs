@@ -12,9 +12,36 @@ namespace GeneralUtils.UI {
 
         protected virtual bool ChangeInteractivity => true;
 
+        private bool _locked;
+        public bool Locked {
+            get => _locked;
+            set {
+                _locked = value;
+                SetGroupInteractable(value, Interactable);
+            }
+        }
+
+        private bool _interactable;
+        private bool Interactable {
+            get => _interactable;
+            set {
+                _interactable = value;
+                SetGroupInteractable(Locked, Interactable);
+            }
+        }
+
         private void Awake() {
             Init();
             _group = TryGetComponent<CanvasGroup>(out var group) ? group : gameObject.AddComponent<CanvasGroup>();
+        }
+
+        private void SetGroupInteractable(bool locked, bool interactable) {
+            var groupInteractable = !locked && interactable;
+            if (ChangeInteractivity) {
+                _group.interactable = groupInteractable;
+            } else {
+                _group.blocksRaycasts = groupInteractable;
+            }
         }
 
         protected virtual void Init() { }
@@ -35,18 +62,10 @@ namespace GeneralUtils.UI {
             _state.Value = EState.Showing;
             gameObject.SetActive(true);
 
-            if (ChangeInteractivity) {
-                _group.interactable = false;
-            } else {
-                _group.blocksRaycasts = false;
-            }
+            Interactable = false;
 
             PerformShow(() => {
-                if (ChangeInteractivity) {
-                    _group.interactable = true;
-                } else {
-                    _group.blocksRaycasts = true;
-                }
+                Interactable = true;
 
                 _state.Value = EState.Shown;
                 onDone?.Invoke();
@@ -72,18 +91,10 @@ namespace GeneralUtils.UI {
 
             _state.Value = EState.Hiding;
 
-            if (ChangeInteractivity) {
-                _group.interactable = false;
-            } else {
-                _group.blocksRaycasts = false;
-            }
+            Interactable = false;
 
             PerformHide(() => {
-                if (ChangeInteractivity) {
-                    _group.interactable = true;
-                } else {
-                    _group.blocksRaycasts = true;
-                }
+                Interactable = true;
 
                 gameObject.SetActive(false);
                 _state.Value = EState.Hided;
