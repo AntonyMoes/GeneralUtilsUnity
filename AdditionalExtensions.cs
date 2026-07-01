@@ -73,5 +73,24 @@ namespace GeneralUtils {
         }
 
         #endregion
+
+        #region Rng
+
+        public static Vector2 NextVector2(this Rng rng, Vector2 min, Vector2 max) {
+            return new Vector2(
+                rng.NextFloat(min.x, max.x),
+                rng.NextFloat(min.y, max.y)
+            );
+        }
+
+        public static Vector3 NextVector3(this Rng rng, Vector3 min, Vector3 max) {
+            return new Vector3(
+                rng.NextFloat(min.x, max.x),
+                rng.NextFloat(min.y, max.y),
+                rng.NextFloat(min.z, max.z)
+            );
+        }
+
+        #endregion
     }
 }
